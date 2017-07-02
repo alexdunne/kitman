@@ -17,9 +17,20 @@ class ViewRecipesTest extends TestCase
     {
         $user = factory(User::class)->create(['username' => 'ironman']);
 
-        $recipe1 = factory(Recipe::class)->make(['name' => 'Chicken Tikka Masala']);
-        $recipe2 = factory(Recipe::class)->make(['name' => 'Pizza']);
-        $recipe3 = factory(Recipe::class)->make(['name' => 'Fajitas']);
+        $recipe1 = factory(Recipe::class)->make([
+            'name' => 'Chicken Tikka Masala',
+            'public' => true
+        ]);
+
+        $recipe2 = factory(Recipe::class)->make([
+            'name' => 'Pizza',
+            'public' => false
+        ]);
+
+        $recipe3 = factory(Recipe::class)->make([
+            'name' => 'Fajitas',
+            'public' => true
+        ]);
 
         $user->recipes()->saveMany([
             $recipe1,
