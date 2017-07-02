@@ -2,13 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\UserRepository;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserRecipesController extends Controller
 {
-    public function index(User $user)
+    public function index(User $user, UserRepository $repo)
     {
-        return view('users.recipes.show', ['user' => $user]);
+        $recipes = Auth::user()->id === $user->id
+            ? $user->recipes
+            : $repo->getPublicRecipesForUser($user);
+
+        return view('users.recipes.show', ['recipes' => $recipes]);
     }
 }
