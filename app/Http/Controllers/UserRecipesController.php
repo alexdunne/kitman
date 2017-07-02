@@ -9,6 +9,6 @@ class UserRecipesController extends Controller
 {
     public function index(User $user)
     {
-      return view('users.recipes.show', ['user' => $user]);
+        return view('users.recipes.show', ['user' => $user]);
     }
 }
