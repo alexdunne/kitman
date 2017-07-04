@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Recipe;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -28,13 +27,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function recipes()
+    public function company()
     {
-        return $this->hasMany(Recipe::class);
-    }
-
-    public function getRouteKeyName()
-    {
-        return 'username';
+        return $this->belongsTo(Company::class);
     }
 }
