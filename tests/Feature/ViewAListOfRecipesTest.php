@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
-class CompanyCanSeeAListOfRecipesTest extends TestCase
+class ViewAListOfRecipesTest extends TestCase
 {
     use DatabaseMigrations;
     use DatabaseTransactions;
@@ -64,5 +64,19 @@ class CompanyCanSeeAListOfRecipesTest extends TestCase
         $response->assertSee('Curry');
         $response->assertDontSee('Fajitas');
         $response->assertDontSee('Pizza');
+    }
+
+    public function testAUserIsInformedWhenThereAreNoRecipesForTheirCompany()
+    {
+        $user = factory(User::class)->create();
+        $company = factory(Company::class)->create();
+
+        $company->addUser($user);
+
+        $response = $this
+            ->actingAs($user)
+            ->get('/recipes');
+
+        $response->assertSee('No recipes found.');
     }
 }
