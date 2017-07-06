@@ -43,3 +43,22 @@ $factory->define(App\Recipe::class, function (Faker\Generator $faker) {
         }
     ];
 });
+
+$factory->define(App\Ingredient::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->word,
+    ];
+});
+
+$factory->define(App\RecipeIngredient::class, function (Faker\Generator $faker) {
+    return [
+        'quantity' => $faker->numberBetween(),
+        'unitOfMeasurement' => $faker->word,
+        'recipe_id' => function () {
+            return factory(\App\Recipe::class)->create()->id;
+        },
+        'ingredient_id' => function () {
+            return factory(\App\Ingredient::class)->create()->id;
+        }
+    ];
+});
