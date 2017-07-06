@@ -6,33 +6,33 @@
             <div class="col-md-8 col-xs-12">
                 <h1>{{ $recipe->name }}</h1>
 
-                <section>
-                    <header>Ingredients</header>
-                    <ul>
-                        @forelse($recipe->recipeIngredients as $recipeIngredient)
-                            <li>
-                                {{ $recipeIngredient->ingredient->name }}:
-                                {{ $recipeIngredient->quantity }}
-                                {{ $recipeIngredient->unitOfMeasurement }}
-                            </li>
-                        @empty
-                            No recipes found.
-                        @endforelse
-                    </ul>
-                </section>
+                @if(count($recipe->recipeIngredients))
+                    <section>
+                        <header>Ingredients</header>
+                        <ul>
+                            @foreach($recipe->recipeIngredients as $recipeIngredient)
+                                <li>
+                                    {{ $recipeIngredient->ingredient->name }}:
+                                    {{ $recipeIngredient->quantity }}
+                                    {{ $recipeIngredient->unitOfMeasurement }}
+                                </li>
+                            @endforeach
+                        </ul>
+                    </section>
+                @endif
 
-                <section>
-                    <header>Instructions</header>
-                    <ul>
-                        @forelse($recipe->instructions as $instruction)
-                            <li>
-                                {{ $instruction->description }}
-                            </li>
-                        @empty
-                            No recipes found.
-                        @endforelse
-                    </ul>
-                </section>
+                @if(count($recipe->instructions))
+                    <section>
+                        <header>Instructions</header>
+                        <ul>
+                            @foreach($recipe->getOrderedInstructions() as $instruction)
+                                <li>
+                                    {{ $instruction->description }}
+                                </li>
+                            @endforeach
+                        </ul>
+                    </section>
+                @endif
             </div>
         </div>
     </div>

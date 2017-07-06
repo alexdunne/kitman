@@ -10,6 +10,11 @@ class Recipe extends Model
         'name'
     ];
 
+    public function getOrderedInstructions()
+    {
+        return $this->instructions()->getQuery()->orderBy('order')->get();
+    }
+
     public function company()
     {
         return $this->belongsTo(Company::class);
