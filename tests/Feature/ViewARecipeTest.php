@@ -6,6 +6,7 @@ use App\Company;
 use App\Ingredient;
 use App\Recipe;
 use App\RecipeIngredient;
+use App\RecipeInstruction;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -36,11 +37,24 @@ class ViewARecipeTest extends TestCase
             'unitOfMeasurement' => 'g',
         ]);
 
+        $firstRecipeInstruction = factory(RecipeInstruction::class)->create([
+            'description' => 'Mix the flour and the yeast',
+            'order' => 1,
+        ]);
+
+        $secondRecipeInstruction = factory(RecipeInstruction::class)->create([
+            'description' => 'Place in the grease proof tin',
+            'order' => 2,
+        ]);
+
         $firstIngredient->addRecipeIngredient($firstRecipeIngredient);
         $secondIngredient->addRecipeIngredient($secondRecipeIngredient);
 
         $recipe->addRecipeIngredient($firstRecipeIngredient);
         $recipe->addRecipeIngredient($secondRecipeIngredient);
+
+        $recipe->addInstruction($firstRecipeInstruction);
+        $recipe->addInstruction($secondRecipeInstruction);
 
         $company->addUser($user);
         $company->addRecipe($recipe);
@@ -58,6 +72,9 @@ class ViewARecipeTest extends TestCase
         $response->assertSee($secondRecipeIngredient->ingredient->name);
         $response->assertSee((string)$secondRecipeIngredient->quantity);
         $response->assertSee($secondRecipeIngredient->unitOfMeasurement);
+
+        $response->assertSee($firstRecipeInstruction->description);
+        $response->assertSee($secondRecipeInstruction->description);
     }
 
     public function testAUserCannotSeeOtherCompaniesRecipe()

@@ -20,8 +20,18 @@ class Recipe extends Model
         return $this->hasMany(RecipeIngredient::class);
     }
 
-    public function addRecipeIngredient($recipeIngredient)
+    public function instructions()
+    {
+        return $this->hasMany(RecipeInstruction::class);
+    }
+
+    public function addRecipeIngredient(RecipeIngredient $recipeIngredient)
     {
         return $this->recipeIngredients()->save($recipeIngredient);
+    }
+
+    public function addInstruction(RecipeInstruction $recipeInstruction)
+    {
+        return $this->instructions()->save($recipeInstruction);
     }
 }

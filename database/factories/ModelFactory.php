@@ -62,3 +62,13 @@ $factory->define(App\RecipeIngredient::class, function (Faker\Generator $faker) 
         }
     ];
 });
+
+$factory->define(App\RecipeInstruction::class, function (Faker\Generator $faker) {
+    return [
+        'description' => $faker->sentence(),
+        'order' => $faker->numberBetween(),
+        'recipe_id' => function () {
+            return factory(\App\Recipe::class)->create()->id;
+        }
+    ];
+});
