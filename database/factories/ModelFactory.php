@@ -38,15 +38,15 @@ $factory->define(App\Recipe::class, function (Faker\Generator $faker) {
         'company_id' => function () {
             return factory(\App\Company::class)->create()->id;
         },
-        'user_id' => function () {
-            return factory(\App\User::class)->create()->id;
-        }
     ];
 });
 
 $factory->define(App\Ingredient::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->word,
+        'company_id' => function () {
+            return factory(\App\Company::class)->create()->id;
+        },
     ];
 });
 
@@ -59,7 +59,7 @@ $factory->define(App\RecipeIngredient::class, function (Faker\Generator $faker) 
         },
         'ingredient_id' => function () {
             return factory(\App\Ingredient::class)->create()->id;
-        }
+        },
     ];
 });
 
@@ -69,6 +69,6 @@ $factory->define(App\RecipeInstruction::class, function (Faker\Generator $faker)
         'order' => $faker->numberBetween(),
         'recipe_id' => function () {
             return factory(\App\Recipe::class)->create()->id;
-        }
+        },
     ];
 });

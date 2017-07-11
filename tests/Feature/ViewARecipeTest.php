@@ -21,11 +21,13 @@ class ViewARecipeTest extends TestCase
     {
         $user = factory(User::class)->create();
         $company = factory(Company::class)->create();
-
         $recipe = factory(Recipe::class)->create(['name' => 'Pizza base']);
 
         $firstIngredient = factory(Ingredient::class)->create(['name' => 'Flour']);
         $secondIngredient = factory(Ingredient::class)->create(['name' => 'Yeast']);
+
+        $company->addIngredient($firstIngredient);
+        $company->addIngredient($secondIngredient);
 
         $firstRecipeIngredient = factory(RecipeIngredient::class)->create([
             'quantity' => 800,
@@ -37,6 +39,12 @@ class ViewARecipeTest extends TestCase
             'unitOfMeasurement' => 'g',
         ]);
 
+        $firstIngredient->addRecipeIngredient($firstRecipeIngredient);
+        $secondIngredient->addRecipeIngredient($secondRecipeIngredient);
+
+        $recipe->addRecipeIngredient($firstRecipeIngredient);
+        $recipe->addRecipeIngredient($secondRecipeIngredient);
+
         $firstRecipeInstruction = factory(RecipeInstruction::class)->create([
             'description' => 'Mix the flour and the yeast',
             'order' => 1,
@@ -46,12 +54,6 @@ class ViewARecipeTest extends TestCase
             'description' => 'Place in the grease proof tin',
             'order' => 2,
         ]);
-
-        $firstIngredient->addRecipeIngredient($firstRecipeIngredient);
-        $secondIngredient->addRecipeIngredient($secondRecipeIngredient);
-
-        $recipe->addRecipeIngredient($firstRecipeIngredient);
-        $recipe->addRecipeIngredient($secondRecipeIngredient);
 
         $recipe->addInstruction($firstRecipeInstruction);
         $recipe->addInstruction($secondRecipeInstruction);

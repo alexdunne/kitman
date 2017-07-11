@@ -17,11 +17,9 @@ class CreateRecipesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->unsignedInteger('company_id');
-            $table->unsignedInteger('user_id');
             $table->timestamps();
 
             $table->foreign('company_id')->references('id')->on('companies');
-            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

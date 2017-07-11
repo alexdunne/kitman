@@ -19,5 +19,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/recipes', 'RecipeController@index')->name('recipes');
-Route::get('/recipes/{recipe}', 'RecipeController@show')->name('recipes.show');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/recipes', 'RecipeController@index')->name('recipes');
+    Route::get('/recipes/{recipe}', 'RecipeController@show')->name('recipes.show');
+    Route::post('/recipes', 'RecipeController@store')->name('recipes.store');
+});

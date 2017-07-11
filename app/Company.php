@@ -16,6 +16,11 @@ class Company extends Model
         return $this->hasMany(Recipe::class);
     }
 
+    public function ingredients()
+    {
+        return $this->hasMany(Ingredient::class);
+    }
+
     public function addUser(User $user)
     {
         $this->users()->save($user);
@@ -24,5 +29,10 @@ class Company extends Model
     public function addRecipe(Recipe $recipe)
     {
         $this->recipes()->save($recipe);
+    }
+
+    public function addIngredient(Ingredient $ingredient)
+    {
+        $this->ingredients()->save($ingredient);
     }
 }

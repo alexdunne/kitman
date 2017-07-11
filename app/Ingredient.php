@@ -10,6 +10,16 @@ class Ingredient extends Model
         'name'
     ];
 
+    public static function findByName($name)
+    {
+        return self::where('name', $name)->first();
+    }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
+
     public function recipeIngredients()
     {
         return $this->hasMany(RecipeIngredient::class);
