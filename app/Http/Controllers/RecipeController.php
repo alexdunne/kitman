@@ -37,11 +37,14 @@ class RecipeController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|string|min:3|max:225',
+            'ingredients' => 'required|array|min:1',
             'ingredients.*.name' => 'required|string|max:225',
             'ingredients.*.quantity' => 'required|integer|min:1',
             'ingredients.*.unitOfMeasurement' => 'required|string|max:225',
-            'instruction.*.description' => 'required|string',
+            'instructions' => 'required|array|min:1',
+            'instructions.*.description' => 'required|string|min:5',
         ]);
+
 
         $recipe = new Recipe(['name' => $request->name]);
         Auth::user()->company->addRecipe($recipe);
