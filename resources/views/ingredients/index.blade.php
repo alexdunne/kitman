@@ -13,7 +13,9 @@
                 <ul>
                     @forelse($ingredients as $ingredient)
                         <li>
-                            {{ $ingredient->name }}
+                            <a href="{{ route('ingredients.show', $ingredient->id) }}">
+                                {{ $ingredient->name }}
+                            </a>
                         </li>
                     @empty
                         No ingredients found.
