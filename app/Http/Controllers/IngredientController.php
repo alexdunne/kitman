@@ -30,7 +30,7 @@ class IngredientController extends Controller
 
         $ingredient = new Ingredient(['name' => $request->name]);
         Auth::user()->company->addIngredient($ingredient);
-        
+
         return redirect()
             ->route('ingredients.index')
             ->with('success', "{$ingredient->name} created successfully");
@@ -45,5 +45,23 @@ class IngredientController extends Controller
         return view('ingredients.show', [
             'ingredient' => $ingredient,
         ]);
+    }
+
+    public function update(Request $request, Ingredient $ingredient)
+    {
+        if (Auth::user()->cant('update', $ingredient)) {
+            abort(403);
+        }
+
+        $this->validate($request, [
+            'name' => 'required|string|min:3|max:225',
+        ]);
+
+        $ingredient->name = $request->name;
+        $ingredient->save();
+
+        return redirect()
+            ->route('ingredients.show', ['ingredient' => $ingredient])
+            ->with('success', "{$ingredient->name} updated successfully");
     }
 }

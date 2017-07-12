@@ -28,4 +28,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/ingredients/create', 'IngredientController@create')->name('ingredients.create');
     Route::post('/ingredients', 'IngredientController@store')->name('ingredients.store');
     Route::get('/ingredients/{ingredient}', 'IngredientController@show')->name('ingredients.show');
+    Route::put('/ingredients/{ingredient}', 'IngredientController@update')->name('ingredients.update');
 });
