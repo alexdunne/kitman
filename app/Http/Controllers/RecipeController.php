@@ -74,7 +74,7 @@ class RecipeController extends Controller
         });
 
         return redirect()
-            ->route('recipes')
+            ->route('recipes.index')
             ->with('success', "{$recipe->name} recipe created successfully");
     }
 }

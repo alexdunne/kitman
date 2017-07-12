@@ -44,7 +44,7 @@ class CreateARecipeTest extends TestCase
             ->actingAs($user)
             ->post('/recipes', $recipesData);
 
-        $response->assertRedirect(route('recipes'));
+        $response->assertRedirect(route('recipes.index'));
         $response->assertSessionHas('success', 'Fajitas recipe created successfully');
     }
 

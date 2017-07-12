@@ -74,7 +74,13 @@
         </div>
     </nav>
 
-    @include('flash-messages')
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                @include('flash-messages')
+            </div>
+        </div>
+    </div>
 
     @yield('content')
 </div>

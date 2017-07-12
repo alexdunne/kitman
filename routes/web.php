@@ -20,10 +20,12 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/recipes', 'RecipeController@index')->name('recipes');
-    Route::get('/recipes/{recipe}', 'RecipeController@show')->name('recipes.show');
+    Route::get('/recipes', 'RecipeController@index')->name('recipes.index');
     Route::post('/recipes', 'RecipeController@store')->name('recipes.store');
+    Route::get('/recipes/{recipe}', 'RecipeController@show')->name('recipes.show');
 
     Route::get('/ingredients', 'IngredientController@index')->name('ingredients.index');
+    Route::get('/ingredients/create', 'IngredientController@create')->name('ingredients.create');
+    Route::post('/ingredients', 'IngredientController@store')->name('ingredients.store');
     Route::get('/ingredients/{ingredient}', 'IngredientController@show')->name('ingredients.show');
 });

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Ingredient;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class IngredientController extends Controller
@@ -14,6 +15,25 @@ class IngredientController extends Controller
         return view('ingredients.index', [
             'ingredients' => $ingredients
         ]);
+    }
+
+    public function create()
+    {
+        return view('ingredients.create');
+    }
+
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required|string|min:3|max:225',
+        ]);
+
+        $ingredient = new Ingredient(['name' => $request->name]);
+        Auth::user()->company->addIngredient($ingredient);
+        
+        return redirect()
+            ->route('ingredients.index')
+            ->with('success', "{$ingredient->name} created successfully");
     }
 
     public function show(Ingredient $ingredient)
