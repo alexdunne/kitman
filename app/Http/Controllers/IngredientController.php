@@ -47,6 +47,17 @@ class IngredientController extends Controller
         ]);
     }
 
+    public function edit(Ingredient $ingredient)
+    {
+        if (Auth::user()->cant('update', $ingredient)) {
+            abort(403);
+        }
+
+        return view('ingredients.edit', [
+            'ingredient' => $ingredient,
+        ]);
+    }
+
     public function update(Request $request, Ingredient $ingredient)
     {
         if (Auth::user()->cant('update', $ingredient)) {

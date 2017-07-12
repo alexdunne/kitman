@@ -6,14 +6,15 @@
             <div class="col-md-8 col-xs-12">
                 @include('errors')
 
-                <form method="post" action="/ingredients">
+                <form method="post" action="/ingredients/{{ $ingredient->id }}">
                     {{ csrf_field() }}
+                    {{ method_field('PUT') }}
 
                     <div class="form-group">
                         <label for="ingredient-name">Name</label>
                         <input id="ingredient-name" type="text" name="name"
                                class="form-control" placeholder="Enter a name for the ingredient"
-                               value="{{ old("name") }}"
+                               value="{{ $ingredient->name }}"
                         />
                     </div>
 
