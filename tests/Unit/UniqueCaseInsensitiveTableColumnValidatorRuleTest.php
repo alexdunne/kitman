@@ -26,5 +26,7 @@ class UniqueCaseInsensitiveTableColumnValidatorRuleTest extends TestCase
         ]);
 
         $this->assertTrue($validator->fails());
+        $this->assertTrue($validator->errors()->has('username'));
+        $this->assertArraySubset(['The username has already been taken'], $validator->errors()->get('username'));
     }
 }
