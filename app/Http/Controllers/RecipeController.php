@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Ingredient;
 use App\Recipe;
-use App\RecipeIngredient;
-use App\RecipeInstruction;
+use App\Services\RecipeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,7 +31,7 @@ class RecipeController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(Request $request, RecipeService $recipeService)
     {
         $this->validate($request, [
             'name' => 'required|string|min:3|max:225',
@@ -45,33 +43,7 @@ class RecipeController extends Controller
             'instructions.*.description' => 'required|string|min:5',
         ]);
 
-
-        $recipe = new Recipe(['name' => $request->name]);
-        Auth::user()->company->addRecipe($recipe);
-
-        collect($request->ingredients)->each(function ($ingredientData) use ($recipe) {
-            $ingredient = Ingredient::findByName($ingredientData['name']);
-
-            if (!$ingredient) {
-                $ingredient = new Ingredient(['name' => $ingredientData['name']]);
-                Auth::user()->company->addIngredient($ingredient);
-            }
-
-            $recipeIngredient = new RecipeIngredient([
-                'quantity' => $ingredientData['quantity'],
-                'unitOfMeasurement' => $ingredientData['unitOfMeasurement'],
-            ]);
-
-            $recipeIngredient->ingredient()->associate($ingredient);
-            $recipe->addRecipeIngredient($recipeIngredient);
-        });
-
-        collect($request->instructions)->each(function ($instructionData, $key) use ($recipe) {
-            $recipe->addInstruction(new RecipeInstruction([
-                'description' => $instructionData['description'],
-                'order' => $key,
-            ]));
-        });
+        $recipe = $recipeService->createRecipe($request->all());
 
         return redirect()
             ->route('recipes.index')
