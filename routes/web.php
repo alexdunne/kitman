@@ -30,4 +30,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/ingredients/{ingredient}', 'IngredientController@show')->name('ingredients.show');
     Route::get('/ingredients/{ingredient}/edit', 'IngredientController@edit')->name('ingredients.edit');
     Route::put('/ingredients/{ingredient}', 'IngredientController@update')->name('ingredients.update');
+    Route::delete('/ingredients/{ingredient}', 'IngredientController@delete')->name('ingredients.delete');
 });

@@ -33,4 +33,16 @@ class IngredientPolicy
     {
         return $user->company->id === $ingredient->company->id;
     }
+
+    /**
+     * Determine whether the user can delete the ingredient
+     *
+     * @param User $user
+     * @param Ingredient $ingredient
+     * @return boolean
+     */
+    public function delete(User $user, Ingredient $ingredient)
+    {
+        return $user->company->id === $ingredient->company->id;
+    }
 }

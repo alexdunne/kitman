@@ -14,5 +14,14 @@
                 {{ $ingredient->name }}
             </div>
         </div>
+        <div class="row actions">
+            <div class="col-xs-12">
+                <form method="post" action="{{ route('ingredients.delete', $ingredient->id) }}">
+                    {{ csrf_field() }}
+                    {{ method_field('DELETE') }}
+                    <button type="submit" class="btn btn-danger">Delete ingredient</button>
+                </form>
+            </div>
+        </div>
     </div>
 @endsection

@@ -75,4 +75,17 @@ class IngredientController extends Controller
             ->route('ingredients.show', ['ingredient' => $ingredient])
             ->with('success', "{$ingredient->name} updated successfully");
     }
+
+    public function delete(Ingredient $ingredient)
+    {
+        if (Auth::user()->cant('delete', $ingredient)) {
+            abort(403);
+        }
+        
+        $ingredient->delete();
+
+        return redirect()
+            ->route('ingredients.index')
+            ->with('success', "{$ingredient->name} successfully deleted");
+    }
 }
