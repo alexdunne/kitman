@@ -18,17 +18,9 @@ class RecipeController extends Controller
         ]);
     }
 
-    public function show(Recipe $recipe)
+    public function create()
     {
-        if (Auth::user()->cant('view', $recipe)) {
-            abort(404);
-        }
-
-        $recipe->load(['instructions', 'recipeIngredients', 'recipeIngredients.ingredient']);
-
-        return view('recipes.show', [
-            'recipe' => $recipe
-        ]);
+        return view('recipes.create');
     }
 
     public function store(Request $request, RecipeService $recipeService)
@@ -49,4 +41,18 @@ class RecipeController extends Controller
             ->route('recipes.index')
             ->with('success', "{$recipe->name} recipe created successfully");
     }
+
+    public function show(Recipe $recipe)
+    {
+        if (Auth::user()->cant('view', $recipe)) {
+            abort(404);
+        }
+
+        $recipe->load(['instructions', 'recipeIngredients', 'recipeIngredients.ingredient']);
+
+        return view('recipes.show', [
+            'recipe' => $recipe
+        ]);
+    }
+
 }
