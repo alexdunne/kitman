@@ -44,6 +44,7 @@ $factory->define(App\Recipe::class, function (Faker\Generator $faker) {
 $factory->define(App\Ingredient::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->word,
+        'unitOfMeasurement' => $faker->word,
         'company_id' => function () {
             return factory(\App\Company::class)->create()->id;
         },
@@ -53,7 +54,6 @@ $factory->define(App\Ingredient::class, function (Faker\Generator $faker) {
 $factory->define(App\RecipeIngredient::class, function (Faker\Generator $faker) {
     return [
         'quantity' => $faker->numberBetween(),
-        'unitOfMeasurement' => $faker->word,
         'recipe_id' => function () {
             return factory(\App\Recipe::class)->create()->id;
         },

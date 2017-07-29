@@ -23,21 +23,20 @@ class ViewARecipeTest extends TestCase
         $company = factory(Company::class)->create();
         $recipe = factory(Recipe::class)->create(['name' => 'Pizza base']);
 
-        $firstIngredient = factory(Ingredient::class)->create(['name' => 'Flour']);
-        $secondIngredient = factory(Ingredient::class)->create(['name' => 'Yeast']);
+        $firstIngredient = factory(Ingredient::class)->create([
+            'name' => 'Flour',
+            'unitOfMeasurement' => 'g',
+        ]);
+        $secondIngredient = factory(Ingredient::class)->create([
+            'name' => 'Yeast',
+            'unitOfMeasurement' => 'g',
+        ]);
 
         $company->addIngredient($firstIngredient);
         $company->addIngredient($secondIngredient);
 
-        $firstRecipeIngredient = factory(RecipeIngredient::class)->create([
-            'quantity' => 800,
-            'unitOfMeasurement' => 'g',
-        ]);
-
-        $secondRecipeIngredient = factory(RecipeIngredient::class)->create([
-            'quantity' => 10,
-            'unitOfMeasurement' => 'g',
-        ]);
+        $firstRecipeIngredient = factory(RecipeIngredient::class)->create(['quantity' => 800,]);
+        $secondRecipeIngredient = factory(RecipeIngredient::class)->create(['quantity' => 10,]);
 
         $firstIngredient->addRecipeIngredient($firstRecipeIngredient);
         $secondIngredient->addRecipeIngredient($secondRecipeIngredient);
@@ -69,11 +68,11 @@ class ViewARecipeTest extends TestCase
 
         $response->assertSee($firstRecipeIngredient->ingredient->name);
         $response->assertSee((string)$firstRecipeIngredient->quantity);
-        $response->assertSee($firstRecipeIngredient->unitOfMeasurement);
+        $response->assertSee($firstRecipeIngredient->ingredient->unitOfMeasurement);
 
         $response->assertSee($secondRecipeIngredient->ingredient->name);
         $response->assertSee((string)$secondRecipeIngredient->quantity);
-        $response->assertSee($secondRecipeIngredient->unitOfMeasurement);
+        $response->assertSee($secondRecipeIngredient->ingredient->unitOfMeasurement);
 
         $response->assertSee($firstRecipeInstruction->description);
         $response->assertSee($secondRecipeInstruction->description);

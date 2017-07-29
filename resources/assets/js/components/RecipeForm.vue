@@ -34,7 +34,6 @@
                                             <tr>
                                                 <td>Name</td>
                                                 <td>Quantity</td>
-                                                <td>Unit of measurement</td>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -44,10 +43,6 @@
                                                 </td>
                                                 <td>
                                                     <input type="text" v-model="ingredient.quantity" placeholder="500"/>
-                                                </td>
-                                                <td>
-                                                    <input type="text" v-model="ingredient.unitOfMeasurement"
-                                                           placeholder="g"/>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -73,7 +68,6 @@
                 recipeIngredients: [{
                     name: 'Chicken',
                     quantity: '500',
-                    unitOfMeasurement: 'g',
                 }],
                 recipeInstructions: [],
                 ingredients: [],

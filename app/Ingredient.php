@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Ingredient extends Model
 {
     protected $fillable = [
-        'name'
+        'name', 'unitOfMeasurement',
     ];
 
     public static function findByName($name)

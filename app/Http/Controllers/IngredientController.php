@@ -26,9 +26,10 @@ class IngredientController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|string|min:3|max:225',
+            'unitOfMeasurement' => 'required|string|max:225',
         ]);
 
-        $ingredient = new Ingredient(['name' => $request->name]);
+        $ingredient = new Ingredient($request->all());
         Auth::user()->company->addIngredient($ingredient);
 
         return redirect()
@@ -81,7 +82,7 @@ class IngredientController extends Controller
         if (Auth::user()->cant('delete', $ingredient)) {
             abort(403);
         }
-        
+
         $ingredient->delete();
 
         return redirect()

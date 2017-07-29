@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Ingredient;
 use App\Recipe;
 use App\Services\RecipeService;
 use Illuminate\Http\Request;
@@ -28,12 +29,16 @@ class RecipeController extends Controller
         $this->validate($request, [
             'name' => 'required|string|min:3|max:225',
             'ingredients' => 'required|array|min:1',
-            'ingredients.*.name' => 'required|string|max:225',
+            'ingredients.*.id' => 'required|integer',
             'ingredients.*.quantity' => 'required|integer|min:1',
-            'ingredients.*.unitOfMeasurement' => 'required|string|max:225',
             'instructions' => 'required|array|min:1',
             'instructions.*.description' => 'required|string|min:5',
         ]);
+
+        collect($request->ingredients)->every(function ($ingredientData) {
+            $ingredient = Ingredient::find($ingredientData['id']);
+            return $ingredient && $this->authorize('view', $ingredient);
+        });
 
         $recipe = $recipeService->createRecipe($request->all());
 

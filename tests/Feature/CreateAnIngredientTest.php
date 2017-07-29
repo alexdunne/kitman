@@ -18,6 +18,7 @@ class CreateAnIngredientTest extends TestCase
 
         $ingredientData = [
             'name' => 'Chicken',
+            'unitOfMeasurement' => 'g',
         ];
 
         $response = $this
@@ -47,7 +48,7 @@ class CreateAnIngredientTest extends TestCase
     public function testAGuestCannotCreateAnIngredient()
     {
         $this->withExceptionHandling();
-        
+
         $ingredientData = [
             'name' => 'Chicken',
         ];

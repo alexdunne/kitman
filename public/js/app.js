@@ -1613,19 +1613,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             recipeIngredients: [{
                 name: 'Chicken',
-                quantity: '500',
-                unitOfMeasurement: 'g'
+                quantity: '500'
             }],
             recipeInstructions: [],
             ingredients: []
@@ -31771,26 +31765,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           ingredient.quantity = $event.target.value
         }
       }
-    })]), _vm._v(" "), _c('td', [_c('input', {
-      directives: [{
-        name: "model",
-        rawName: "v-model",
-        value: (ingredient.unitOfMeasurement),
-        expression: "ingredient.unitOfMeasurement"
-      }],
-      attrs: {
-        "type": "text",
-        "placeholder": "g"
-      },
-      domProps: {
-        "value": (ingredient.unitOfMeasurement)
-      },
-      on: {
-        "input": function($event) {
-          if ($event.target.composing) { return; }
-          ingredient.unitOfMeasurement = $event.target.value
-        }
-      }
     })])])
   }))])])]), _vm._v(" "), _c('section', {
     staticClass: "tab-pane",
@@ -31847,7 +31821,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("\n                                    Method\n                                ")])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('thead', [_c('tr', [_c('td', [_vm._v("Name")]), _vm._v(" "), _c('td', [_vm._v("Quantity")]), _vm._v(" "), _c('td', [_vm._v("Unit of measurement")])])])
+  return _c('thead', [_c('tr', [_c('td', [_vm._v("Name")]), _vm._v(" "), _c('td', [_vm._v("Quantity")])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Ingredient;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -15,19 +16,23 @@ class CreateARecipeTest extends TestCase
     public function testAUserCanCreateARecipe()
     {
         $user = factory(User::class)->create();
+        $ingredientOne = factory(Ingredient::class)->create([
+            'company_id' => $user->company->id
+        ]);
+        $ingredientTwo = factory(Ingredient::class)->create([
+            'company_id' => $user->company->id
+        ]);
 
         $recipesData = [
             'name' => 'Fajitas',
             'ingredients' => [
                 [
-                    'name' => 'Chicken',
+                    'id' => $ingredientOne->id,
                     'quantity' => '500',
-                    'unitOfMeasurement' => 'g',
                 ],
                 [
-                    'name' => 'Green pepper',
+                    'id' => $ingredientTwo->id,
                     'quantity' => '100',
-                    'unitOfMeasurement' => 'g',
                 ],
             ],
             'instructions' => [
@@ -53,13 +58,15 @@ class CreateARecipeTest extends TestCase
         $this->withExceptionHandling();
 
         $user = factory(User::class)->create();
+        $ingredientOne = factory(Ingredient::class)->create([
+            'company_id' => $user->company->id
+        ]);
 
         $recipesData = [
             'ingredients' => [
                 [
-                    'name' => 'Chicken',
+                    'id' => $ingredientOne->id,
                     'quantity' => '500',
-                    'unitOfMeasurement' => 'g',
                 ],
             ],
             'instructions' => [
@@ -105,14 +112,16 @@ class CreateARecipeTest extends TestCase
         $this->withExceptionHandling();
 
         $user = factory(User::class)->create();
+        $ingredientOne = factory(Ingredient::class)->create([
+            'company_id' => $user->company->id
+        ]);
 
         $recipesData = [
             'name' => 'Fajitas',
             'ingredients' => [
                 [
-                    'name' => 'Chicken',
+                    'id' => $ingredientOne->id,
                     'quantity' => '500',
-                    'unitOfMeasurement' => 'g',
                 ],
             ],
         ];

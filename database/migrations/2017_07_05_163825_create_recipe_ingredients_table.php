@@ -16,7 +16,6 @@ class CreateRecipeIngredientsTable extends Migration
         Schema::create('recipe_ingredients', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('quantity');
-            $table->string('unitOfMeasurement');
             $table->unsignedInteger('recipe_id');
             $table->unsignedInteger('ingredient_id');
             $table->timestamps();

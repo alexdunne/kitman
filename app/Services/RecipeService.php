@@ -20,16 +20,10 @@ class RecipeService
         Auth::user()->company->addRecipe($recipe);
 
         collect($data['ingredients'])->each(function ($ingredientData) use ($recipe) {
-            $ingredient = Ingredient::findByName($ingredientData['name']);
-
-            if (!$ingredient) {
-                $ingredient = new Ingredient(['name' => $ingredientData['name']]);
-                Auth::user()->company->addIngredient($ingredient);
-            }
+            $ingredient = Ingredient::findOrFail($ingredientData['id']);
 
             $recipeIngredient = new RecipeIngredient([
                 'quantity' => $ingredientData['quantity'],
-                'unitOfMeasurement' => $ingredientData['unitOfMeasurement'],
             ]);
 
             $recipeIngredient->ingredient()->associate($ingredient);
