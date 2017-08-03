@@ -11,8 +11,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(CompanyTableSeeder::class);
-        $this->call(UserTableSeeder::class);
-        $this->call(RecipeTableSeeder::class);
+        $company = factory(\App\Company::class)->create(['name' => 'Legoland',]);
+
+        factory(\App\User::class)->create([
+            'username' => 'legohead',
+            'password' => bcrypt('test'),
+            'company_id' => $company->id,
+        ]);
     }
 }
