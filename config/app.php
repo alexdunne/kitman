@@ -180,6 +180,7 @@ return [
         /*
          * Custom Service Providers...
          */
+        Barryvdh\Debugbar\ServiceProvider::class,
         App\Providers\RecipeServiceProvider::class,
     ],
 
