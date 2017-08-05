@@ -2,9 +2,11 @@
 @import "../abstracts/variables";
 
 .card {
+  position: relative;
   display: block;
   background: #FFFFFF;
   padding: 1rem;
+  margin-bottom: 1.5rem;
   @include shadow(1);
 }
 
@@ -22,4 +24,15 @@
 
 .card--top-border {
   border-top: 6px solid $brand-primary;
+}
+
+.card--disabled:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: #000000;
+  opacity: 0.05;
 }

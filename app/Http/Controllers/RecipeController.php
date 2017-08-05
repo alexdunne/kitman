@@ -42,9 +42,7 @@ class RecipeController extends Controller
 
         $recipe = $recipeService->createRecipe($request->all());
 
-        return redirect()
-            ->route('recipes.index')
-            ->with('success', "{$recipe->name} recipe created successfully");
+        return response()->json(compact('recipe'));
     }
 
     public function show(Recipe $recipe)

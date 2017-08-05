@@ -47,10 +47,9 @@ class CreateARecipeTest extends TestCase
 
         $response = $this
             ->actingAs($user)
-            ->post('/recipes', $recipesData);
+            ->postJson('/recipes', $recipesData);
 
-        $response->assertRedirect(route('recipes.index'));
-        $response->assertSessionHas('success', 'Fajitas recipe created successfully');
+        $response->assertStatus(200);
     }
 
     public function testAUserCannotCreateARecipeWithoutAName()

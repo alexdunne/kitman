@@ -27,6 +27,7 @@ class UpdateAnIngredientTest extends TestCase
 
         $ingredientData = [
             'name' => 'Pork',
+            'unitOfMeasurement' => 'g',
         ];
 
         $response = $this
