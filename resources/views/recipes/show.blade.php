@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-md-8 col-xs-12">
+            <div class="col-lg-8 col-xs-12">
                 <h1>{{ $recipe->name }}</h1>
 
                 @if(count($recipe->recipeIngredients))

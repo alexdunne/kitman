@@ -21,7 +21,9 @@ class RecipeController extends Controller
 
     public function create()
     {
-        return view('recipes.create');
+        return view('recipes.create', [
+            'ingredients' => Auth::user()->company->ingredients
+        ]);
     }
 
     public function store(Request $request, RecipeService $recipeService)

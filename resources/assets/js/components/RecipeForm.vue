@@ -42,9 +42,9 @@
 </style>
 
 <template>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-md-offset-2 col-md-8 col-xs-12">
+            <div class="col-lg-offset-2 col-lg-8 col-xs-12">
                 <form @submit.prevent="saveRecipe()">
                     <div class="card card--top-border" :class="{'card--disabled': saving}">
                         <div class="form-group">
@@ -57,33 +57,6 @@
                         </div>
                     </div>
 
-<<<<<<< 0b8b39ad84a931b924760d139d2094c4ca01a92c
-                            <div class="tab-content">
-                                <section role="tabpanel" class="tab-pane active" id="ingredients">
-                                    <h3>Ingredients</h3>
-                                    <div>
-                                        <table class="table">
-                                            <thead>
-                                            <tr>
-                                                <td>Name</td>
-                                                <td>Quantity</td>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr v-for="ingredient in recipeIngredients">
-                                                <td>
-                                                    <input type="text" v-model="ingredient.name" placeholder="Chicken"/>
-                                                </td>
-                                                <td>
-                                                    <input type="text" v-model="ingredient.quantity" placeholder="500"/>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </section>
-                                <section role="tabpanel" class="tab-pane" id="method">
-=======
                     <div class="card card--top-border" :class="{'card--disabled': saving}">
                         <section>
                             <header class="section-header">
@@ -94,18 +67,24 @@
                                     <li v-for="recipeIngredient in recipeIngredients" class="recipe-list__item">
                                         <p>
                                             {{ recipeIngredient.ingredient.name }} -
-                                            {{ recipeIngredient.quantity + recipeIngredient.ingredient.unitOfMeasurement }}
+                                            {{ recipeIngredient.quantity + recipeIngredient.ingredient.unitOfMeasurement
+                                            }}
                                         </p>
                                     </li>
                                     <li class="recipe-list__item">
                                         <form @submit.prevent="addRecipeIngredient()" class="form-inline">
-                                            <select class="form-control" title="Ingredient selection" v-model="nextIngredient.id">
-                                                <option disabled :value="null">Please select an ingredient</option>
-                                                <option v-for="ingredient in ingredients" :value="ingredient.id">
+                                            <select class="form-control" title="Ingredient selection"
+                                                    v-model="nextIngredient.id">
+                                                <option disabled :value="null">Please select an ingredient
+                                                </option>
+                                                <option v-for="ingredient in ingredients"
+                                                        :value="ingredient.id">
                                                     {{ ingredient.name }}
                                                 </option>
                                             </select>
-                                            <input type="number" class="form-control" title="Ingredient quantity" v-model="nextIngredient.quantity"/>
+                                            <input type="number" class="form-control"
+                                                   title="Ingredient quantity"
+                                                   v-model="nextIngredient.quantity"/>
                                             <button class="btn btn-primary" type="submit">
                                                 Add
                                             </button>
@@ -115,7 +94,6 @@
                             </div>
                         </section>
                     </div>
->>>>>>> Finished the rough version of the create recipe form
 
                     <div class="card card--top-border" :class="{'card--disabled': saving}">
                         <section>
@@ -129,7 +107,8 @@
                                     </li>
                                     <li>
                                         <form @submit.prevent="addInstruction()" class="form-inline">
-                                            <input type="text" class="form-control" title="Instruction" v-model="nextInstruction"/>
+                                            <input type="text" class="form-control" title="Instruction"
+                                                   v-model="nextInstruction"/>
                                             <button class="btn btn-primary" type="submit">
                                                 Add
                                             </button>
@@ -155,18 +134,9 @@
 
 <script>
     export default {
+        props: ['ingredients'],
         data: function () {
             return {
-<<<<<<< 0b8b39ad84a931b924760d139d2094c4ca01a92c
-                recipeIngredients: [{
-                    name: 'Chicken',
-                    quantity: '500',
-                }],
-                recipeInstructions: [],
-                ingredients: [],
-            };
-        },
-=======
                 recipeName: null,
                 recipeIngredients: [],
                 recipeInstructions: [],
@@ -179,7 +149,7 @@
             };
         },
         computed: {
-            canSaveRecipe: function() {
+            canSaveRecipe: function () {
                 return this.recipeName !== null &&
                     this.recipeIngredients.length > 0 &&
                     this.recipeInstructions.length > 0 &&
@@ -188,7 +158,7 @@
         },
         methods: {
             addRecipeIngredient: function () {
-                const { id, quantity } = this.nextIngredient;
+                const {id, quantity} = this.nextIngredient;
 
                 if (id !== null && quantity !== null) {
                     let ingredient = this.ingredients.filter(ingredient => ingredient.id === id);
@@ -227,14 +197,13 @@
                         })),
                         instructions: this.recipeInstructions,
                     }).then((res) => {
-                       this.saving = false;
-                       window.location = `/recipes/${res.data.recipe.id}`;
+                        this.saving = false;
+                        window.location = `/recipes/${res.data.recipe.id}`;
                     }).catch((err) => {
                         this.saving = false;
                     });
                 }
             },
         },
->>>>>>> Finished the rough version of the create recipe form
     }
 </script>

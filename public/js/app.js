@@ -1546,9 +1546,224 @@ module.exports = function spread(callback) {
 
 /***/ }),
 /* 29 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed: SyntaxError: Unexpected token (160:0)\n\n\u001b[0m \u001b[90m 158 | \u001b[39m        data\u001b[33m:\u001b[39m \u001b[36mfunction\u001b[39m () {\n \u001b[90m 159 | \u001b[39m            \u001b[36mreturn\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 160 | \u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<\u001b[39m \u001b[35m0\u001b[39mb8b39ad84a931b924760d139d2094c4ca01a92c\n \u001b[90m     | \u001b[39m\u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 161 | \u001b[39m                recipeIngredients\u001b[33m:\u001b[39m [{\n \u001b[90m 162 | \u001b[39m                    name\u001b[33m:\u001b[39m \u001b[32m'Chicken'\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m 163 | \u001b[39m                    quantity\u001b[33m:\u001b[39m \u001b[32m'500'\u001b[39m\u001b[33m,\u001b[39m\u001b[0m\n");
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['ingredients'],
+    data: function data() {
+        return {
+            recipeName: null,
+            recipeIngredients: [],
+            recipeInstructions: [],
+            nextIngredient: {
+                id: null,
+                quantity: null
+            },
+            nextInstruction: null,
+            saving: false
+        };
+    },
+    computed: {
+        canSaveRecipe: function canSaveRecipe() {
+            return this.recipeName !== null && this.recipeIngredients.length > 0 && this.recipeInstructions.length > 0 && !this.saving;
+        }
+    },
+    methods: {
+        addRecipeIngredient: function addRecipeIngredient() {
+            var _nextIngredient = this.nextIngredient,
+                id = _nextIngredient.id,
+                quantity = _nextIngredient.quantity;
+
+
+            if (id !== null && quantity !== null) {
+                var ingredient = this.ingredients.filter(function (ingredient) {
+                    return ingredient.id === id;
+                });
+                ingredient = ingredient.length === 1 ? ingredient[0] : null;
+
+                if (!ingredient) {
+                    return;
+                }
+
+                this.recipeIngredients.push({ ingredient: ingredient, quantity: quantity });
+                this.resetNextIngredient();
+            }
+        },
+        resetNextIngredient: function resetNextIngredient() {
+            this.nextIngredient = {
+                id: null,
+                quantity: null
+            };
+        },
+        addInstruction: function addInstruction() {
+            if (this.nextInstruction !== null && this.nextInstruction.trim().length > 0) {
+                this.recipeInstructions.push({
+                    description: this.nextInstruction
+                });
+                this.nextInstruction = null;
+            }
+        },
+        saveRecipe: function saveRecipe() {
+            var _this = this;
+
+            if (this.canSaveRecipe) {
+                this.saving = true;
+                axios.post("/recipes", {
+                    name: this.recipeName,
+                    ingredients: this.recipeIngredients.map(function (recipeIngredient) {
+                        return {
+                            id: recipeIngredient.ingredient.id,
+                            quantity: recipeIngredient.quantity
+                        };
+                    }),
+                    instructions: this.recipeInstructions
+                }).then(function (res) {
+                    _this.saving = false;
+                    window.location = "/recipes/" + res.data.recipe.id;
+                }).catch(function (err) {
+                    _this.saving = false;
+                });
+            }
+        }
+    }
+});
 
 /***/ }),
 /* 30 */
@@ -31695,7 +31910,195 @@ module.exports = function normalizeComponent (
 /* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports={render:function(){},staticRenderFns:[]}
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "container-fluid"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-lg-offset-2 col-lg-8 col-xs-12"
+  }, [_c('form', {
+    on: {
+      "submit": function($event) {
+        $event.preventDefault();
+        _vm.saveRecipe()
+      }
+    }
+  }, [_c('div', {
+    staticClass: "card card--top-border",
+    class: {
+      'card--disabled': _vm.saving
+    }
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    staticClass: "required",
+    attrs: {
+      "for": "recipe-name"
+    }
+  }, [_vm._v("Name")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.recipeName),
+      expression: "recipeName"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "id": "recipe-name",
+      "type": "text",
+      "name": "name",
+      "placeholder": "Chicken Tikka Masala"
+    },
+    domProps: {
+      "value": (_vm.recipeName)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.recipeName = $event.target.value
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "card card--top-border",
+    class: {
+      'card--disabled': _vm.saving
+    }
+  }, [_c('section', [_c('header', {
+    staticClass: "section-header"
+  }, [_vm._v("\n                            Ingredients\n                        ")]), _vm._v(" "), _c('div', [_c('ul', {
+    staticClass: "list-unstyled recipe-list"
+  }, [_vm._l((_vm.recipeIngredients), function(recipeIngredient) {
+    return _c('li', {
+      staticClass: "recipe-list__item"
+    }, [_c('p', [_vm._v("\n                                        " + _vm._s(recipeIngredient.ingredient.name) + " -\n                                        " + _vm._s(recipeIngredient.quantity + recipeIngredient.ingredient.unitOfMeasurement) + "\n                                    ")])])
+  }), _vm._v(" "), _c('li', {
+    staticClass: "recipe-list__item"
+  }, [_c('form', {
+    staticClass: "form-inline",
+    on: {
+      "submit": function($event) {
+        $event.preventDefault();
+        _vm.addRecipeIngredient()
+      }
+    }
+  }, [_c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.nextIngredient.id),
+      expression: "nextIngredient.id"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "title": "Ingredient selection"
+    },
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.nextIngredient.id = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "disabled": ""
+    },
+    domProps: {
+      "value": null
+    }
+  }, [_vm._v("Please select an ingredient\n                                            ")]), _vm._v(" "), _vm._l((_vm.ingredients), function(ingredient) {
+    return _c('option', {
+      domProps: {
+        "value": ingredient.id
+      }
+    }, [_vm._v("\n                                                " + _vm._s(ingredient.name) + "\n                                            ")])
+  })], 2), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.nextIngredient.quantity),
+      expression: "nextIngredient.quantity"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "number",
+      "title": "Ingredient quantity"
+    },
+    domProps: {
+      "value": (_vm.nextIngredient.quantity)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.nextIngredient.quantity = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "type": "submit"
+    }
+  }, [_vm._v("\n                                            Add\n                                        ")])])])], 2)])])]), _vm._v(" "), _c('div', {
+    staticClass: "card card--top-border",
+    class: {
+      'card--disabled': _vm.saving
+    }
+  }, [_c('section', [_c('header', {
+    staticClass: "section-header"
+  }, [_vm._v("\n                            Method\n                        ")]), _vm._v(" "), _c('div', [_c('ol', [_vm._l((_vm.recipeInstructions), function(instruction) {
+    return _c('li', [_c('p', [_vm._v(_vm._s(instruction.description))])])
+  }), _vm._v(" "), _c('li', [_c('form', {
+    staticClass: "form-inline",
+    on: {
+      "submit": function($event) {
+        $event.preventDefault();
+        _vm.addInstruction()
+      }
+    }
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.nextInstruction),
+      expression: "nextInstruction"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "title": "Instruction"
+    },
+    domProps: {
+      "value": (_vm.nextInstruction)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.nextInstruction = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "type": "submit"
+    }
+  }, [_vm._v("\n                                            Add\n                                        ")])])])], 2)])])]), _vm._v(" "), _c('div', {
+    staticClass: "card card--top-border clearfix"
+  }, [_c('div', {
+    staticClass: "pull-right"
+  }, [_c('button', {
+    staticClass: "btn btn-success",
+    attrs: {
+      "type": "submit",
+      "disabled": !_vm.canSaveRecipe
+    }
+  }, [_vm._v("\n                            Save recipe\n                        ")])])])])])])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
