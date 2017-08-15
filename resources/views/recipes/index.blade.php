@@ -1,19 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-xs-12">
-                <ul>
-                    @forelse($recipes as $recipe)
-                        <li>
-                            {{ $recipe->name }}
-                        </li>
-                    @empty
-                        No recipes found.
-                    @endforelse
-                </ul>
-            </div>
-        </div>
-    </div>
+    <ul>
+        @forelse($recipes as $recipe)
+            <li>
+                <a href="{{ route('recipes.show', ['id' => $recipe->id]) }}">
+                    {{ $recipe->name }}
+                </a>
+            </li>
+        @empty
+            No recipes found.
+        @endforelse
+    </ul>
 @endsection
